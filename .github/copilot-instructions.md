@@ -45,3 +45,27 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## Performance
+- Implement lazy loading for feature modules
+- Use `trackBy` functions in `@for` loops to optimize rendering
+- Avoid unnecessary change detection cycles by using `ChangeDetectionStrategy.OnPush`
+- Optimize template expressions to avoid heavy computations
+- Use Angular's built-in directives and pipes for common tasks
+## Accessibility
+- Use semantic HTML elements
+- Ensure all interactive elements are keyboard accessible
+- Provide appropriate ARIA attributes where necessary
+## Testing
+- Write unit tests for components, services, and pipes
+- Use Vitest for testing
+- Aim for high test coverage, focusing on critical paths and edge cases
+## Documentation
+- Document complex logic and decisions in the code
+- Use meaningful names for variables, functions, and classes
+
+## Make sure
+- Your code adheres to the above best practices
+- Your code is free of syntax and logical errors
+- Your code is well-formatted and easy to read
+- You use the angular documentation https://angular.dev/llms.txt

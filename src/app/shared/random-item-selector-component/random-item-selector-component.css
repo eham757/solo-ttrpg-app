@@ -1,0 +1,14 @@
+.item {
+  color: inherit;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.selected-item {
+  color: #1976d2; /* Example: blue highlight */
+  font-weight: bold;
+}
+
+ul{
+  padding-left: 20px;
+  list-style-type: none;
+}

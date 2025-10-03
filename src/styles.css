@@ -113,9 +113,19 @@ section {
   gap: 1rem;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .row > * {
   flex: 1 1 0;
   min-width: 180px;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  background: #23232b;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
 }

@@ -4,7 +4,8 @@ import { Component, input, signal } from '@angular/core';
   selector: 'app-die-roller-component',
   imports: [],
   templateUrl: './die-roller-component.html',
-  styleUrl: './die-roller-component.css'
+  styleUrl: './die-roller-component.css',
+  host: { class: 'card' },
 })
 export class DieRollerComponent {
   numberOfSides = input<number>(6);

@@ -1,6 +1,6 @@
 <main class="home-container">
   <section class="home-header">
-    <h1>Welcome to the Randomizer App!</h1>
+    <h1>Welcome to the Oracle</h1>
     <p>
       This app provides various tools to help you make random selections and
       roll dice for your games or decision-making needs.
@@ -49,22 +49,17 @@
       lists.
     </p>
     <div class="row">
-      <app-random-item-selector-component
-        title="Choose a description (short)"
+      <app-multi-random-item-selector
+        title="Choose descriptions (long short list)"
         buttonText="Choose"
         [items]="shortDescriptionList"
         [showList]="false"
-      ></app-random-item-selector-component>
-
-      <app-random-item-selector-component
-        title="Choose a description (long)"
-        buttonText="Choose"
-        [items]="longDescriptionList"
-        [showList]="false"
-      ></app-random-item-selector-component>
+        [rollCount]="3"
+        [allowModifyRollCount]="true"
+      ></app-multi-random-item-selector>
 
       <app-multi-random-item-selector
-        title="Choose multiple descriptions"
+        title="Choose descriptions (long list)"
         buttonText="Choose"
         [items]="longDescriptionList"
         [showList]="false"

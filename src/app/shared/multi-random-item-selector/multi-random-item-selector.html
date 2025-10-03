@@ -11,10 +11,17 @@
 }
 
 <p>Selected Items: {{ selectedItems() ?? [] }}</p>
-<button (click)="onButtonClick()"> {{ buttonText() }} </button>
+<div class="button-row">
+  <div>
+    <button (click)="onButtonClick()"> {{ buttonText() }} </button>
+  </div>
 
 @if(allowModifyRollCount()){
-  <button (click)="onAddCount()"> + </button>
-  {{ localRollCount() }}
-  <button (click)="onSubtractCount()"> - </button>
+
+  <div class="count-group">
+    <button (click)="onAddCount()"> + </button>
+    <span>{{ localRollCount() }}</span>
+    <button (click)="onSubtractCount()"> - </button>
+  </div>
 }
+</div>

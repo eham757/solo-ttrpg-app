@@ -4,7 +4,8 @@ import { Component, input, signal } from '@angular/core';
   selector: 'app-random-item-selector-component',
   imports: [],
   templateUrl: './random-item-selector-component.html',
-  styleUrl: './random-item-selector-component.css'
+  styleUrl: './random-item-selector-component.css',
+  host: { class: 'card' },
 })
 export class RandomItemSelectorComponent {
   items = input<string[]>([]);

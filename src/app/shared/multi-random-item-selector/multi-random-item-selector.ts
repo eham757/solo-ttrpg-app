@@ -4,7 +4,8 @@ import { Component, effect, input, signal } from '@angular/core';
   selector: 'app-multi-random-item-selector',
   imports: [],
   templateUrl: './multi-random-item-selector.html',
-  styleUrl: './multi-random-item-selector.css'
+  styleUrl: './multi-random-item-selector.css',
+  host: { class: 'card' },
 })
 export class MultiRandomItemSelector {
   items = input<string[]>([]);
@@ -21,10 +22,7 @@ export class MultiRandomItemSelector {
   });
 
   public selectRandomItems(): string[] {
-    // const items = this.items();
-    // console.log('Items:', items);
-    // const randomIndex = Math.floor(Math.random() * items.length);
-    // return items[randomIndex];
+
     const items = this.items();
     const count = this.localRollCount();
     const selectedItems: string[] = [];

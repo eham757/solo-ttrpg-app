@@ -1,1 +1,122 @@
 /* You can add global styles to this file, and also import other style files */
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* Set box-sizing globally */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove list styles */
+ol, ul {
+  list-style: none;
+}
+
+/* Remove default button and input styles */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  outline: none;
+}
+
+
+/*END RESET */
+/* Set base line-height */
+html {
+  font-size: 16px; /* Sets the default font size for the app */
+}
+
+body {
+  line-height: 1.5;
+}
+
+:host {
+  display: block;
+  background: #181820;
+  color: #f4f4f4;
+  font-family: 'Inter', Arial, sans-serif;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+h1, h2, h3 {
+  font-family: 'Merriweather', serif;
+  color: #c9a86b;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+button {
+  background: #c9a86b;
+  color: #23232b;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+button:hover,
+button:focus {
+  background: #b04a02;
+  color: #fff;
+  outline: 2px solid #fff;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+.row > * {
+  flex: 1 1 0;
+  min-width: 180px;
+}

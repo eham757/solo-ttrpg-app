@@ -1,19 +1,128 @@
+<main class="home-container">
+  <section class="home-header">
+    <h1>Welcome to the Randomizer App!</h1>
+    <p>
+      This app provides various tools to help you make random selections and
+      roll dice for your games or decision-making needs.
+    </p>
+    <p>
+      Whether you need to choose a random item from a list, roll different
+      types of dice, or get quick descriptions, this app has got you covered.
+      Explore the components below to get started!
+    </p>
+  </section>
+  <section class="oracle-section">
+    <h2>Oracle</h2>
+    <p>
+      The Oracle component is designed to provide quick and random answers to
+      your questions. It can be used for decision-making, storytelling, or
+      simply for fun. Click the "Roll" button to get a random response from the
+      predefined list of options.
+    </p>
+    <app-random-item-selector-component
+      title="Oracle will it?"
+      buttonText="Roll"
+      [items]="['Yes and', 'Yes', 'Yes but', 'No but', 'No', 'No and']"
+      [showList]="true"
+    ></app-random-item-selector-component>
 
-<app-random-item-selector-component
-  title="Oracle will it?"
-  buttonText="Roll"
-  [items]="['Yes and', 'Yes', 'Yes but', 'No but', 'No', 'No and']"
-  [showList]="true"
-></app-random-item-selector-component>
+    <app-random-item-selector-component
+      title="Choose a direction"
+      buttonText="Choose"
+      [items]="['North', 'East', 'South', 'West']"
+      [showList]="false"
+    ></app-random-item-selector-component>
 
-<app-die-roller-component
-  title="Roll a d20"
-  buttonText="Roll d20"
-  [numberOfSides]="20"
-></app-die-roller-component>
+    <app-random-item-selector-component
+      title="Choose a color"
+      buttonText="Choose"
+      [items]="['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange']"
+      [showList]="false"
+    ></app-random-item-selector-component>
+  </section>
+  <section class="description-section">
+    <h2>Descriptions</h2>
+    <p>
+      The Description components provide random short and long descriptions that
+      can be used for characters, settings, or items in your stories or games.
+      Click the "Choose" button to get a random description from the predefined
+      lists.
+    </p>
+    <app-random-item-selector-component
+      title="Choose a description (short)"
+      buttonText="Choose"
+      [items]="shortDescriptionList"
+      [showList]="false"
+    ></app-random-item-selector-component>
 
-<app-die-roller-component
-  title="Roll a d6"
-  buttonText="Roll d6"
-  [numberOfSides]="6"
-></app-die-roller-component>
+    <app-random-item-selector-component
+      title="Choose a description (long)"
+      buttonText="Choose"
+      [items]="longDescriptionList"
+      [showList]="false"
+    ></app-random-item-selector-component>
+  </section>
+  <section class="dice-section">
+    <h2>Dice Roller</h2>
+    <p>
+      The Dice Roller components allow you to roll various types of dice
+      commonly used in tabletop games. Simply click the button corresponding to
+      the die you want to roll, and the result will be displayed.
+    </p>
+    <app-die-roller-component
+      title="Roll a d100"
+      buttonText="Roll d100"
+      [numberOfSides]="100"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d20"
+      buttonText="Roll d20"
+      [numberOfSides]="20"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d12"
+      buttonText="Roll d12"
+      [numberOfSides]="12"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d10"
+      buttonText="Roll d10"
+      [numberOfSides]="10"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d8"
+      buttonText="Roll d8"
+      [numberOfSides]="8"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d6"
+      buttonText="Roll d6"
+      [numberOfSides]="6"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d4"
+      buttonText="Roll d4"
+      [numberOfSides]="4"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d3"
+      buttonText="Roll d3"
+      [numberOfSides]="3"
+    ></app-die-roller-component>
+
+    <app-die-roller-component
+      title="Roll a d2"
+      buttonText="Roll d2"
+      [numberOfSides]="2"
+    ></app-die-roller-component>
+  </section>
+
+</main>
+

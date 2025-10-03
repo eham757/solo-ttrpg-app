@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RandomItemSelectorComponent } from "../../shared/random-item-selector-component/random-item-selector-component";
 import { DieRollerComponent } from '../../shared/die-roller-component/die-roller-component';
+import { MultiRandomItemSelector } from "../../shared/multi-random-item-selector/multi-random-item-selector";
 
 @Component({
   selector: 'app-home',
-  imports: [RandomItemSelectorComponent, DieRollerComponent],
+  imports: [RandomItemSelectorComponent, DieRollerComponent, MultiRandomItemSelector],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

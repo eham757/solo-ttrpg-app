@@ -1,0 +1,14 @@
+<h3>{{ title() }}</h3>
+@if(showList()){
+  <ul>
+    @for (item of items(); track $index) {
+      <li
+        class="list-item"
+        [class.selected-item]="(selectedItems() ?? []).includes(item)"
+      >{{ item }}</li>
+    }
+  </ul>
+}
+
+<p>Selected Items: {{ selectedItems() ?? [] }}</p>
+<button (click)="onButtonClick()"> {{ buttonText() }} </button>

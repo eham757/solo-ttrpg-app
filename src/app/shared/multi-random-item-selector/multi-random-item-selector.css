@@ -1,0 +1,23 @@
+.item {
+  color: inherit;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.selected-item {
+  color: #1976d2; /* Example: blue highlight */
+  font-weight: bold;
+}
+
+ul{
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+:host{
+  display: block;
+  background: #23232b;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+}

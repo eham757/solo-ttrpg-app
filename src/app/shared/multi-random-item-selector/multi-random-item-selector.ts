@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-multi-random-item-selector',
@@ -12,9 +12,13 @@ export class MultiRandomItemSelector {
   buttonText = input<string>('Select Random Item');
   showList = input<boolean>(false);
   rollCount = input<number>(1);
-
+  allowModifyRollCount = input<boolean>(false);
   selectedItems = signal<string[] | null>(null);
+  localRollCount = signal<number>(1);
 
+  private syncRollCount = effect(() => {
+    this.localRollCount.set(this.rollCount());
+  });
 
   public selectRandomItems(): string[] {
     // const items = this.items();
@@ -22,7 +26,7 @@ export class MultiRandomItemSelector {
     // const randomIndex = Math.floor(Math.random() * items.length);
     // return items[randomIndex];
     const items = this.items();
-    const count = this.rollCount();
+    const count = this.localRollCount();
     const selectedItems: string[] = [];
     for (let i = 0; i < count; i++) {
       // Prevent selecting the same item multiple times
@@ -43,4 +47,15 @@ export class MultiRandomItemSelector {
     console.log('Selected Item:', selectedItem);
     this.selectedItems.set(selectedItem);
   }
+
+  public onAddCount(): void {
+    this.localRollCount.set(this.localRollCount() + 1);
+  }
+
+  public onSubtractCount(): void {
+    if (this.localRollCount() > 1) {
+      this.localRollCount.set(this.localRollCount() - 1);
+    }
+  }
+
 }

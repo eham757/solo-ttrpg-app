@@ -57,3 +57,18 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Deploying to azure
+1. login
+```
+az login
+```
+2. run this command and look for the apikey
+```
+az staticwebapp secrets list --name <application-name>
+```
+3. run this deployment
+```
+swa deploy -d <api-key> -a <build e.g. ./dist/solo-ttrpg-app/browser> -env <env e.g. 'production'> 
+```

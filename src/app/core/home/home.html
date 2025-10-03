@@ -48,19 +48,21 @@
       Click the "Choose" button to get a random description from the predefined
       lists.
     </p>
-    <app-random-item-selector-component
-      title="Choose a description (short)"
-      buttonText="Choose"
-      [items]="shortDescriptionList"
-      [showList]="false"
-    ></app-random-item-selector-component>
+    <div class="row">
+      <app-random-item-selector-component
+        title="Choose a description (short)"
+        buttonText="Choose"
+        [items]="shortDescriptionList"
+        [showList]="false"
+      ></app-random-item-selector-component>
 
-    <app-random-item-selector-component
-      title="Choose a description (long)"
-      buttonText="Choose"
-      [items]="longDescriptionList"
-      [showList]="false"
-    ></app-random-item-selector-component>
+      <app-random-item-selector-component
+        title="Choose a description (long)"
+        buttonText="Choose"
+        [items]="longDescriptionList"
+        [showList]="false"
+      ></app-random-item-selector-component>
+    </div>
   </section>
   <section class="dice-section">
     <h2>Dice Roller</h2>
@@ -69,59 +71,62 @@
       commonly used in tabletop games. Simply click the button corresponding to
       the die you want to roll, and the result will be displayed.
     </p>
-    <app-die-roller-component
-      title="Roll a d100"
-      buttonText="Roll d100"
-      [numberOfSides]="100"
-    ></app-die-roller-component>
+    <div class="row">
+      <app-die-roller-component
+        title="Roll a d100"
+        buttonText="Roll d100"
+        [numberOfSides]="100"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d20"
-      buttonText="Roll d20"
-      [numberOfSides]="20"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d20"
+        buttonText="Roll d20"
+        [numberOfSides]="20"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d12"
-      buttonText="Roll d12"
-      [numberOfSides]="12"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d12"
+        buttonText="Roll d12"
+        [numberOfSides]="12"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d10"
-      buttonText="Roll d10"
-      [numberOfSides]="10"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d10"
+        buttonText="Roll d10"
+        [numberOfSides]="10"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d8"
-      buttonText="Roll d8"
-      [numberOfSides]="8"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d8"
+        buttonText="Roll d8"
+        [numberOfSides]="8"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d6"
-      buttonText="Roll d6"
-      [numberOfSides]="6"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d6"
+        buttonText="Roll d6"
+        [numberOfSides]="6"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d4"
-      buttonText="Roll d4"
-      [numberOfSides]="4"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d4"
+        buttonText="Roll d4"
+        [numberOfSides]="4"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d3"
-      buttonText="Roll d3"
-      [numberOfSides]="3"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d3"
+        buttonText="Roll d3"
+        [numberOfSides]="3"
+      ></app-die-roller-component>
 
-    <app-die-roller-component
-      title="Roll a d2"
-      buttonText="Roll d2"
-      [numberOfSides]="2"
-    ></app-die-roller-component>
+      <app-die-roller-component
+        title="Roll a d2"
+        buttonText="Roll d2"
+        [numberOfSides]="2"
+      ></app-die-roller-component>
+    </div>
+    
   </section>
 
 </main>

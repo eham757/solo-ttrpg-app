@@ -101,3 +101,22 @@ button:focus {
   color: #fff;
   outline: 2px solid #fff;
 }
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+.row > * {
+  flex: 1 1 0;
+  min-width: 180px;
+}

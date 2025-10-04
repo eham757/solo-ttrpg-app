@@ -107,6 +107,35 @@ section {
   gap: 1.5rem;
 }
 
+
+select {
+  background: #23232b;
+  color: #f4f4f4;
+  border: 1px solid #c9a86b;
+  border-radius: 0.3rem;
+  padding: 0.5em 2em 0.5em 1em;
+  font-size: 1rem;
+  font-family: inherit;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  cursor: pointer;
+  min-width: 100px;
+  margin: 0 0.25rem;
+  position: relative;
+}
+
+select:focus {
+  border-color: #b04a02;
+  box-shadow: 0 0 0 2px #b04a02;
+}
+
+select option {
+  background: #23232b;
+  color: #f4f4f4;
+}
+
 .row {
   display: flex;
   flex-direction: row;

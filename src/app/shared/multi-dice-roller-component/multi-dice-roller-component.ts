@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-multi-dice-roller-component',
@@ -14,10 +14,12 @@ export class MultiDiceRollerComponent {
   diceTypes = input<number[]>([2,3,4,6,8,10,12,20,100]);
 
   results = signal<number[]>([]);
-  diceArray = signal<number[]>([6,6,6,6]);
+  diceArray = signal<number[]>([]);
   title = signal<string>('Multi Dice Roller');
   buttonText = signal<string>('Roll Dice');
-  numberOfSides = signal<number>(6);
+  numberOfSides = signal<number>(2);
+  total = computed(() => this.results().reduce((acc, curr) => acc + curr, 0));
+
   public rollDice(): void {
     const dice = this.diceArray();
     const newResults: number[] = [];

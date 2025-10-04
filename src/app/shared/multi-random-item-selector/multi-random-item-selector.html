@@ -10,7 +10,12 @@
   </ul>
 }
 
-<p>Selected Items: {{ selectedItems() ?? [] }}</p>
+<p>
+  Selected Items: 
+  @if(selectedItems()) {
+    {{ selectedItems()?.join(', ') }}
+  }
+</p>
 <div class="button-row">
   <div>
     <button (click)="onButtonClick()"> {{ buttonText() }} </button>

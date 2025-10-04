@@ -1,6 +1,13 @@
 <h3>{{ title() }}</h3>
 <p>Current Dice: {{ diceArray() }}</p>
-<p>You've rolled: {{ results() }}</p>
+<p>
+    You've rolled:
+    @if(results().length > 0){
+        {{ results().join(', ') }}
+        <strong> that totals to: {{ total() }} </strong>
+    }
+    
+</p>
 <div class="button-row">
     <button (click)="addDie()" aria-label="add an additional die"> + </button>
     <select [value]="numberOfSides()" (change)="onSidesChange($event)">

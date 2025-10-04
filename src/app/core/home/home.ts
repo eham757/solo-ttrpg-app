@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { RandomItemSelectorComponent } from "../../shared/random-item-selector-component/random-item-selector-component";
 import { DieRollerComponent } from '../../shared/die-roller-component/die-roller-component';
 import { MultiRandomItemSelector } from "../../shared/multi-random-item-selector/multi-random-item-selector";
+import { MultiDiceRollerComponent } from '../../shared/multi-dice-roller-component/multi-dice-roller-component';
 
 @Component({
   selector: 'app-home',
-  imports: [RandomItemSelectorComponent, DieRollerComponent, MultiRandomItemSelector],
+  imports: [RandomItemSelectorComponent, DieRollerComponent, MultiRandomItemSelector, MultiDiceRollerComponent],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

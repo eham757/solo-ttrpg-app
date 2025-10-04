@@ -1,0 +1,18 @@
+<h3>{{ title() }}</h3>
+<p>Current Dice: {{ diceArray() }}</p>
+<p>You've rolled: {{ results() }}</p>
+<div class="button-row">
+    <button (click)="addDie()" aria-label="add an additional die"> + </button>
+    <select [value]="numberOfSides()" (change)="onSidesChange($event)">
+        @for (die of diceTypes(); track die) {
+            <option [value]="die">{{ die }}</option>
+        }
+    </select>
+
+    <button (click)="removeDie()" aria-label="remove a die"> - </button>
+</div>
+<div class="button-row">
+    <button (click)="rollDice()" 
+        aria-label="Roll all dice">{{ buttonText() }}
+    </button>
+</div>

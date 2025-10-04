@@ -45,4 +45,9 @@ export class MultiDiceRollerComponent {
     const value = parseInt(input.value, 10);
     this.numberOfSides.set(value);
   }
+
+  public clearDice(): void {
+    this.diceArray.set([]);
+    this.results.set([]);
+  }
 }

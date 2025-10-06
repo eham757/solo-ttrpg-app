@@ -46,6 +46,16 @@ button, input, select, textarea {
 
 /*END RESET */
 /* Set base line-height */
+
+:root {
+  --color-bg: #181820;
+  --color-surface: #23232b;
+  --color-primary: #c9a86b;
+  --color-primary-dark: #b04a02;
+  --color-text: #f4f4f4;
+  --color-accent: #fff;
+}
+
 html {
   font-size: 16px; /* Sets the default font size for the app */
 }
@@ -56,8 +66,8 @@ body {
 
 :host {
   display: block;
-  background: #181820;
-  color: #f4f4f4;
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: 'Inter', Arial, sans-serif;
   min-height: 100vh;
   padding: 2rem 1rem;
@@ -65,7 +75,7 @@ body {
 
 h1, h2, h3 {
   font-family: 'Merriweather', serif;
-  color: #c9a86b;
+  color: var(--color-primary);
   margin-bottom: 0.5em;
   font-weight: bold;
 }
@@ -83,22 +93,22 @@ h3 {
 }
 
 button {
-  background: #c9a86b;
-  color: #23232b;
+  background: var(--color-primary);
+  color: var(--color-surface);
   border: none;
   border-radius: 0.3rem;
   padding: 0.6em 1.2em;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s, transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 
 button:hover {
-  background: #b04a02;
-  color: #fff;
-  outline: 2px solid #fff;
+  background: var(--color-primary-dark);
+  color: var(--color-accent);
+  transform: scale(1.01, 1.03);
 }
 
 section {
@@ -109,9 +119,9 @@ section {
 
 
 select {
-  background: #23232b;
-  color: #f4f4f4;
-  border: 1px solid #c9a86b;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
   border-radius: 0.3rem;
   padding: 0.5em 2em 0.5em 1em;
   font-size: 1rem;
@@ -127,13 +137,13 @@ select {
 }
 
 select:focus {
-  border-color: #b04a02;
-  box-shadow: 0 0 0 2px #b04a02;
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 2px var(--color-primary-dark);
 }
 
 select option {
-  background: #23232b;
-  color: #f4f4f4;
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .row {
@@ -154,7 +164,7 @@ select option {
 .card{
   display: flex;
   flex-direction: column;
-  background: #23232b;
+  background: var(--color-surface);
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   margin-bottom: 1.5rem;

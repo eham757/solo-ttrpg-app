@@ -10,12 +10,15 @@
 </p>
 <div class="button-row">
     <button (click)="addDie()" aria-label="add an additional die"> + </button>
-    <select [value]="numberOfSides()" (change)="onSidesChange($event)">
-        @for (die of diceTypes(); track die) {
-            <option [value]="die">{{ die }}</option>
-        }
-    </select>
-
+    <div class="select-group">
+        <select [value]="numberOfSides()" (change)="onSidesChange($event)">
+            @for (die of diceTypes(); track die) {
+                <option [value]="die">{{ die }}</option>
+            }
+        </select>
+        <span class="material-icons" aria-label="Expand options" tabindex="0">keyboard_arrow_down</span>
+    </div>
+    
     <button (click)="removeDie()" aria-label="remove a die"> - </button>
     <button (click)="clearDice()" aria-label="clear all dice"> Clear All </button>
 </div>

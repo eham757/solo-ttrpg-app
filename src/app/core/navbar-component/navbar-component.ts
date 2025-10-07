@@ -10,8 +10,8 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   links = [
 
-    { label: 'About', url: '/about' },
-    { label: 'Home', url: '/home' },
-    { label: 'Contact', url: '/contact' }
+    { label: 'Characters', url: '/characters' },
+    { label: 'Oracle', url: '/' },
+    { label: 'Items', url: '/items' }
   ];
 }

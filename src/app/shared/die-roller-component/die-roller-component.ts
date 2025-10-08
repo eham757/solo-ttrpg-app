@@ -1,8 +1,8 @@
 import { Component, input, signal } from '@angular/core';
-
+import { ButtonComponent } from '../ui/button-component/button-component';
 @Component({
   selector: 'app-die-roller-component',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './die-roller-component.html',
   styleUrl: './die-roller-component.css',
   host: { class: 'card' },

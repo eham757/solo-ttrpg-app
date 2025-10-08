@@ -1,0 +1,20 @@
+button {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  width: 100%;
+}
+
+button:hover,
+button:focus {
+  background: #b04a02;
+  color: #fff;
+  outline: 2px solid #fff;
+}

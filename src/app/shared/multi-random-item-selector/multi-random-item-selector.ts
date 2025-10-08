@@ -1,8 +1,9 @@
 import { Component, effect, input, signal } from '@angular/core';
+import { ButtonComponent } from "../ui/button-component/button-component";
 
 @Component({
   selector: 'app-multi-random-item-selector',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './multi-random-item-selector.html',
   styleUrl: './multi-random-item-selector.css',
   host: { class: 'card' },

@@ -1,6 +1,7 @@
 <h3>{{ title() }}</h3>
 <p>You've rolled: {{ result() }}</p>
-<button (click)="result.set(rollDie())" 
+
+<app-button-component (click)="result.set(rollDie())" 
     aria-label="Roll a {{ numberOfSides() }} sided die">{{ buttonText() }}
-</button>
+</app-button-component>
 

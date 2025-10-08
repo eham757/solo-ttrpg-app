@@ -1,8 +1,9 @@
 import { Component, computed, input, signal } from '@angular/core';
+import { ButtonComponent } from "../ui/button-component/button-component";
 
 @Component({
   selector: 'app-multi-dice-roller-component',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './multi-dice-roller-component.html',
   styleUrl: './multi-dice-roller-component.css',
   host: { class: 'card' }

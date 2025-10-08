@@ -9,7 +9,7 @@
     
 </p>
 <div class="button-row">
-    <button (click)="addDie()" aria-label="add an additional die"> + </button>
+    <app-button-component (click)="removeDie()" aria-label="remove a die"> - </app-button-component>
     <div class="select-group">
         <select [value]="numberOfSides()" (change)="onSidesChange($event)">
             @for (die of diceTypes(); track die) {
@@ -18,12 +18,9 @@
         </select>
         <span class="material-icons" aria-label="Expand options" tabindex="0">keyboard_arrow_down</span>
     </div>
-    
-    <button (click)="removeDie()" aria-label="remove a die"> - </button>
-    <button (click)="clearDice()" aria-label="clear all dice"> Clear All </button>
+    <app-button-component (click)="addDie()" aria-label="add an additional die"> + </app-button-component>
+    <app-button-component (click)="clearDice()" aria-label="clear all dice"> Clear All </app-button-component>
 </div>
 <div class="button-row">
-    <button (click)="rollDice()" 
-        aria-label="Roll all dice">{{ buttonText() }}
-    </button>
+    <app-button-component (click)="rollDice()" aria-label="Roll all dice"> {{ buttonText() }} </app-button-component>
 </div>

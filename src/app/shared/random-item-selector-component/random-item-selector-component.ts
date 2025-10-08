@@ -1,8 +1,8 @@
 import { Component, input, signal } from '@angular/core';
-
+import { ButtonComponent } from '../ui/button-component/button-component';
 @Component({
   selector: 'app-random-item-selector-component',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './random-item-selector-component.html',
   styleUrl: './random-item-selector-component.css',
   host: { class: 'card' },

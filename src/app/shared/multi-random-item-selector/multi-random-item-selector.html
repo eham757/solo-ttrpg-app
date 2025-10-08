@@ -18,15 +18,15 @@
 </p>
 <div class="button-row">
   <div>
-    <button (click)="onButtonClick()"> {{ buttonText() }} </button>
+    <app-button-component (click)="onButtonClick()"> {{ buttonText() }} </app-button-component>
   </div>
 
 @if(allowModifyRollCount()){
 
   <div class="count-group">
-    <button (click)="onAddCount()"> + </button>
+    <app-button-component (click)="onSubtractCount()"> - </app-button-component>
     <span>{{ localRollCount() }}</span>
-    <button (click)="onSubtractCount()"> - </button>
+    <app-button-component (click)="onAddCount()"> + </app-button-component>
   </div>
 }
 </div>

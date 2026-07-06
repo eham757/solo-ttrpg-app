@@ -28,6 +28,8 @@ export class OraclePage {
   private readonly oracleContext = inject(OracleContextService);
 
   question = signal<string>('');
+  promptQuestion = signal<string>('');
+  promptWordCount = signal<number>(3);
   likelihood = signal<LikelihoodMode>('normal');
   latestResult = signal<OracleRollResult | null>(null);
   entityInput = signal<string>('');
@@ -57,6 +59,26 @@ export class OraclePage {
       this.interventionEntitySuggestion.set(null);
       this.interventionPlotSuggestion.set(null);
     }
+  }
+
+  public askPromptOracle(): void {
+    const text = this.promptQuestion().trim();
+    if (!text) {
+      return;
+    }
+
+    const result = this.oracleService.rollPrompt(text, this.promptWordCount());
+    this.latestResult.set(result);
+    this.interventionEntitySuggestion.set(null);
+    this.interventionPlotSuggestion.set(null);
+  }
+
+  public increasePromptWordCount(): void {
+    this.promptWordCount.update((count) => count + 1);
+  }
+
+  public decreasePromptWordCount(): void {
+    this.promptWordCount.update((count) => Math.max(1, count - 1));
   }
 
   public setLikelihood(mode: LikelihoodMode): void {

@@ -25,6 +25,14 @@ const INTERVENTION_TABLE: Record<number, InterventionType> = {
   6: 'Wild',
 };
 
+const PROMPT_WORD_POOL: string[] = [
+  'ancient', 'hidden', 'broken', 'sacred', 'wild', 'lonely', 'storm', 'shadow', 'ember', 'thorn',
+  'river', 'forest', 'marsh', 'mountain', 'ruin', 'tower', 'village', 'temple', 'road', 'gate',
+  'watcher', 'hunter', 'merchant', 'ghost', 'beast', 'bandit', 'knight', 'oracle', 'hermit', 'stranger',
+  'home', 'memory', 'fear', 'hope', 'blood', 'gold', 'secret', 'oath', 'curse', 'truth',
+  'pursuit', 'ambush', 'echo', 'whisper', 'signal', 'clue', 'loss', 'bargain', 'rescue', 'betrayal',
+];
+
 @Injectable({ providedIn: 'root' })
 export class OracleService {
   private readonly _interventionPoints = signal<number>(0);
@@ -77,6 +85,7 @@ export class OracleService {
     this._interventionPoints.set(interventionPointsAfterRoll);
 
     const result: OracleRollResult = {
+      entryType: 'oracle',
       question: trimmedQuestion,
       likelihood,
       dice,
@@ -90,6 +99,29 @@ export class OracleService {
 
     this._history.update((history) => [result, ...history]);
 
+    return result;
+  }
+
+  public rollPrompt(question: string, wordCount = 3): OracleRollResult {
+    const trimmedQuestion = question.trim();
+    const count = Number.isFinite(wordCount) ? Math.max(1, Math.floor(wordCount)) : 3;
+    const promptWords = this.pickPromptWords(count);
+
+    const result: OracleRollResult = {
+      entryType: 'prompt',
+      question: trimmedQuestion,
+      likelihood: 'normal',
+      dice: [],
+      selectedDie: 0,
+      outcome: 'Yes',
+      interventionPointGain: 0,
+      interventionPointsAfterRoll: this._interventionPoints(),
+      intervention: null,
+      createdAt: new Date().toISOString(),
+      promptWords,
+    };
+
+    this._history.update((history) => [result, ...history]);
     return result;
   }
 
@@ -125,5 +157,14 @@ export class OracleService {
 
   private rollD6(): number {
     return Math.floor(Math.random() * 6) + 1;
+  }
+
+  private pickPromptWords(count: number): string[] {
+    const unique = new Set<string>();
+    while (unique.size < count) {
+      const randomIndex = Math.floor(Math.random() * PROMPT_WORD_POOL.length);
+      unique.add(PROMPT_WORD_POOL[randomIndex]);
+    }
+    return Array.from(unique);
   }
 }

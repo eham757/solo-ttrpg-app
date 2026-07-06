@@ -10,6 +10,22 @@
   font-weight: 700;
 }
 
+.word-count-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.word-count-picker span {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.count-value {
+  min-width: 1.6rem;
+  text-align: center;
+}
+
 textarea {
   background: var(--color-bg);
   color: var(--color-text);

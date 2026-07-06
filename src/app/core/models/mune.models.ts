@@ -17,6 +17,7 @@ export type InterventionType =
   | 'Wild';
 
 export interface OracleRollResult {
+  entryType: 'oracle' | 'prompt';
   question: string;
   likelihood: LikelihoodMode;
   dice: number[];
@@ -26,6 +27,7 @@ export interface OracleRollResult {
   interventionPointsAfterRoll: number;
   intervention: InterventionEvent | null;
   createdAt: string;
+  promptWords?: string[];
 }
 
 export interface InterventionEvent {

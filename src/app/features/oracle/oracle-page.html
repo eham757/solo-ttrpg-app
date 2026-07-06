@@ -45,18 +45,47 @@
     <p class="points">Intervention Points: {{ oracleService.interventionPoints() }}/3</p>
   </section>
 
+  <section class="card">
+    <h2>Prompt Oracle (3 Words)</h2>
+    <p>Use this for broad scene inspiration, then follow with yes/no oracle questions.</p>
+
+    <label class="field-label" for="promptQuestion">Prompt Question</label>
+    <textarea
+      id="promptQuestion"
+      rows="2"
+      [ngModel]="promptQuestion()"
+      (ngModelChange)="promptQuestion.set($event)"
+      placeholder="Example: Where am I?"
+    ></textarea>
+
+    <div class="word-count-picker" role="group" aria-label="Prompt word count">
+      <span>Word count:</span>
+      <button type="button" class="small-btn" (click)="decreasePromptWordCount()">-</button>
+      <strong class="count-value">{{ promptWordCount() }}</strong>
+      <button type="button" class="small-btn" (click)="increasePromptWordCount()">+</button>
+    </div>
+
+    <button type="button" (click)="askPromptOracle()">Roll Prompt</button>
+  </section>
+
   @if (latestResult(); as result) {
   <section class="card result-card">
     <h2>Latest Result</h2>
+    <p><strong>Type:</strong> {{ result.entryType === 'prompt' ? 'Prompt Oracle' : 'Yes/No Oracle' }}</p>
+    @if (result.entryType === 'prompt') {
+    <p><strong>Prompt:</strong> {{ (result.promptWords ?? []).join(', ') }}</p>
+    }
+    @if (result.entryType === 'oracle') {
     <p><strong>Outcome:</strong> {{ result.outcome }}</p>
     <p><strong>Dice:</strong> {{ result.dice.join(', ') }} | <strong>Selected:</strong> {{ result.selectedDie }}</p>
+    }
     <p><strong>Question:</strong> {{ result.question }}</p>
 
-    @if (result.interventionPointGain > 0) {
+    @if (result.entryType === 'oracle' && result.interventionPointGain > 0) {
     <p class="gain">Intervention +{{ result.interventionPointGain }} (a die rolled 6)</p>
     }
 
-    @if (result.intervention; as intervention) {
+    @if (result.entryType === 'oracle' && result.intervention; as intervention) {
     <div class="intervention-box">
       <h3>Intervention Triggered</h3>
       <p><strong>Type:</strong> {{ intervention.type }} (d6: {{ intervention.typeDie }})</p>
@@ -75,12 +104,18 @@
       @for (entry of oracleService.history(); track entry.createdAt) {
       <li>
         <p>
-          <strong>{{ entry.outcome }}</strong>
+          <strong>
+            {{ entry.entryType === 'prompt' ? 'Prompt Oracle' : entry.outcome }}
+          </strong>
           <span>({{ entry.createdAt | date: 'shortTime' }})</span>
         </p>
         <p>{{ entry.question }}</p>
+        @if (entry.entryType === 'prompt') {
+        <p class="small">Words: {{ (entry.promptWords ?? []).join(', ') }}</p>
+        } @else {
         <p class="small">Dice {{ entry.dice.join(', ') }} | Mode: {{ entry.likelihood }}</p>
-        @if (entry.intervention) {
+        }
+        @if (entry.entryType === 'oracle' && entry.intervention) {
         <p class="small"><strong>Intervention:</strong> {{ entry.intervention.type }}</p>
         }
       </li>

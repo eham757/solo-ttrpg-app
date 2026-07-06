@@ -1,0 +1,87 @@
+.sheet-page {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.file-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.starter-pack {
+  border: 1px solid rgba(201, 168, 107, 0.35);
+  border-radius: 0.4rem;
+  padding: 0.7rem;
+  background: rgba(201, 168, 107, 0.06);
+}
+
+.starter-pack ul {
+  list-style: disc;
+  margin-left: 1.2rem;
+}
+
+.starter-pack a {
+  color: var(--color-primary);
+}
+
+.starter-pack a:hover {
+  color: var(--color-primary-dark);
+}
+
+.file-row input[type='file'] {
+  border: 1px solid var(--color-primary);
+  border-radius: 0.35rem;
+  padding: 0.45rem;
+}
+
+.info {
+  color: #9bf089;
+  font-weight: 700;
+}
+
+.errors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #ffb3b3;
+}
+
+.dynamic-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-field label {
+  font-weight: 700;
+}
+
+.form-field input[type='text'],
+.form-field input[type='number'],
+.form-field textarea,
+.form-field select {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.35rem;
+  padding: 0.65rem;
+}
+
+.form-field input[type='checkbox'] {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.help {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}

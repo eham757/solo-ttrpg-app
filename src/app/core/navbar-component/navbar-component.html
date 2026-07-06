@@ -1,9 +1,11 @@
 <nav class="navbar">
-    <ul>
-        @for (link of links; track $index) {
-          <li>
-            <a [routerLink]="link.url">{{ link.label }}</a>
-          </li>
-        }
-    </ul>
+  <ul>
+    @for (link of links; track link.url) {
+      <li>
+        <a [routerLink]="link.url" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: link.url === '/' }">
+          {{ link.label }}
+        </a>
+      </li>
+    }
+  </ul>
 </nav>

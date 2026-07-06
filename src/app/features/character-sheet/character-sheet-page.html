@@ -1,0 +1,135 @@
+<main class="sheet-page">
+  <section class="card">
+    <h1>Character Sheet Engine</h1>
+    <p>
+      Load a schema JSON file to define your sheet structure, then fill fields and export your character to JSON.
+    </p>
+
+    <div class="starter-pack">
+      <h2>Starter Schema Packs</h2>
+      <p>Use these built-in files to begin quickly:</p>
+      <ul>
+        <li>
+          <a href="/schema-packs/dnd5e-2014.schema.json" target="_blank" rel="noopener noreferrer">D&amp;D 5e 2014 Starter Schema</a>
+        </li>
+        <li>
+          <a href="/schema-packs/dnd5e-2014.sample-character.json" target="_blank" rel="noopener noreferrer">D&amp;D 5e 2014 Sample Character</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="file-row">
+      <label for="schemaFile">Schema JSON</label>
+      <input id="schemaFile" type="file" accept="application/json,.json" (change)="onSchemaSelected($event)" />
+    </div>
+
+    <div class="file-row">
+      <label for="characterFile">Character JSON</label>
+      <input
+        id="characterFile"
+        type="file"
+        accept="application/json,.json"
+        (change)="onCharacterSelected($event)"
+      />
+    </div>
+
+    @if (info()) {
+    <p class="info">{{ info() }}</p>
+    }
+
+    @if (errors().length > 0) {
+    <ul class="errors">
+      @for (error of errors(); track error) {
+      <li>{{ error }}</li>
+      }
+    </ul>
+    }
+  </section>
+
+  @if (hasSchema() && schema(); as activeSchema) {
+  <section class="card">
+    <h2>{{ activeSchema.name }}</h2>
+    <p>Version: {{ activeSchema.version }}</p>
+    @if (activeSchema.description) {
+    <p>{{ activeSchema.description }}</p>
+    }
+
+    <form class="dynamic-form" (submit)="$event.preventDefault()">
+      @for (field of activeSchema.fields; track field.id) {
+      <div class="form-field">
+        <label [for]="field.id">{{ field.label }}</label>
+
+        @switch (field.type) {
+          @case ('text') {
+            <input
+              [id]="field.id"
+              type="text"
+              [placeholder]="field.placeholder ?? ''"
+              [ngModel]="valueAsText(field)"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="updateField(field, $event)"
+            />
+          }
+          @case ('textarea') {
+            <textarea
+              [id]="field.id"
+              rows="3"
+              [placeholder]="field.placeholder ?? ''"
+              [ngModel]="valueAsText(field)"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="updateField(field, $event)"
+            ></textarea>
+          }
+          @case ('number') {
+            <input
+              [id]="field.id"
+              type="number"
+              [ngModel]="valueAsText(field)"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="updateField(field, $event)"
+            />
+          }
+          @case ('boolean') {
+            <input
+              [id]="field.id"
+              type="checkbox"
+              [ngModel]="valueAsBoolean(field)"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="updateField(field, $event)"
+            />
+          }
+          @case ('select') {
+            <select
+              [id]="field.id"
+              [ngModel]="valueAsText(field)"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="updateField(field, $event)"
+            >
+              @for (option of field.options ?? []; track option) {
+              <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          }
+          @case ('stringList') {
+            <textarea
+              [id]="field.id"
+              rows="3"
+              placeholder="Comma separated values"
+              [ngModel]="valueAsText(field)"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="updateField(field, $event)"
+            ></textarea>
+          }
+        }
+
+        @if (field.helpText) {
+        <p class="help">{{ field.helpText }}</p>
+        }
+      </div>
+      }
+    </form>
+
+    <button type="button" (click)="exportCharacter()">Export Character JSON</button>
+  </section>
+  }
+</main>

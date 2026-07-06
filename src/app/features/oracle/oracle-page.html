@@ -1,0 +1,164 @@
+<main class="oracle-page">
+  <section class="card">
+    <h1>MUNE Oracle</h1>
+    <p>
+      Ask a yes/no question, choose likelihood, and roll. Intervention points increase when any oracle die is a 6.
+    </p>
+
+    <label class="field-label" for="oracleQuestion">Question</label>
+    <textarea
+      id="oracleQuestion"
+      rows="3"
+      [ngModel]="question()"
+      (ngModelChange)="question.set($event)"
+      placeholder="Example: Is the innkeeper hiding something?"
+    ></textarea>
+
+    <div class="segmented-control" role="group" aria-label="Likelihood mode">
+      <button type="button" [class.active]="likelihood() === 'unlikely'" (click)="setLikelihood('unlikely')">
+        Unlikely
+      </button>
+      <button type="button" [class.active]="likelihood() === 'normal'" (click)="setLikelihood('normal')">
+        Normal
+      </button>
+      <button type="button" [class.active]="likelihood() === 'likely'" (click)="setLikelihood('likely')">
+        Likely
+      </button>
+    </div>
+
+    <div class="action-row">
+      <button type="button" (click)="askOracle()">Roll Oracle</button>
+      <button type="button" class="secondary" (click)="resetSession()">Reset Session</button>
+    </div>
+
+    <div class="action-row three-actions">
+      <button type="button" class="secondary" (click)="clearHistory()">Clear History</button>
+      <button type="button" class="secondary" (click)="exportState()">Save State (JSON)</button>
+      <label class="upload-btn" for="stateFileUpload">Load State (JSON)</label>
+      <input id="stateFileUpload" type="file" accept="application/json,.json" (change)="onStateFileSelected($event)" />
+    </div>
+
+    @if (importExportMessage()) {
+    <p class="small info-msg">{{ importExportMessage() }}</p>
+    }
+
+    <p class="points">Intervention Points: {{ oracleService.interventionPoints() }}/3</p>
+  </section>
+
+  @if (latestResult(); as result) {
+  <section class="card result-card">
+    <h2>Latest Result</h2>
+    <p><strong>Outcome:</strong> {{ result.outcome }}</p>
+    <p><strong>Dice:</strong> {{ result.dice.join(', ') }} | <strong>Selected:</strong> {{ result.selectedDie }}</p>
+    <p><strong>Question:</strong> {{ result.question }}</p>
+
+    @if (result.interventionPointGain > 0) {
+    <p class="gain">Intervention +{{ result.interventionPointGain }} (a die rolled 6)</p>
+    }
+
+    @if (result.intervention; as intervention) {
+    <div class="intervention-box">
+      <h3>Intervention Triggered</h3>
+      <p><strong>Type:</strong> {{ intervention.type }} (d6: {{ intervention.typeDie }})</p>
+      <p>{{ intervention.notes }}</p>
+    </div>
+    }
+  </section>
+  }
+
+  <section class="card">
+    <h2>Session Timeline</h2>
+    @if (oracleService.history().length === 0) {
+    <p>No rolls yet.</p>
+    } @else {
+    <ul class="timeline">
+      @for (entry of oracleService.history(); track entry.createdAt) {
+      <li>
+        <p>
+          <strong>{{ entry.outcome }}</strong>
+          <span>({{ entry.createdAt | date: 'shortTime' }})</span>
+        </p>
+        <p>{{ entry.question }}</p>
+        <p class="small">Dice {{ entry.dice.join(', ') }} | Mode: {{ entry.likelihood }}</p>
+        @if (entry.intervention) {
+        <p class="small"><strong>Intervention:</strong> {{ entry.intervention.type }}</p>
+        }
+      </li>
+      }
+    </ul>
+    }
+  </section>
+
+  <section class="card">
+    <h2>Entities and Plots</h2>
+    <p>Keep active lists so interventions can target something concrete.</p>
+
+    <div class="manager-grid">
+      <div>
+        <h3>Entities</h3>
+        <div class="inline-input">
+          <input
+            type="text"
+            placeholder="Add entity (NPC, faction, monster group)"
+            [ngModel]="entityInput()"
+            (ngModelChange)="entityInput.set($event)"
+          />
+          <button type="button" (click)="addEntity()">Add</button>
+        </div>
+
+        @if (entities().length === 0) {
+        <p class="small">No entities yet.</p>
+        } @else {
+        <ul class="chip-list">
+          @for (entity of entities(); track entity; let i = $index) {
+          <li>
+            <span>{{ entity }}</span>
+            <button type="button" class="small-btn" (click)="removeEntity(i)">x</button>
+          </li>
+          }
+        </ul>
+        }
+      </div>
+
+      <div>
+        <h3>Plots</h3>
+        <div class="inline-input">
+          <input
+            type="text"
+            placeholder="Add unresolved plot thread"
+            [ngModel]="plotInput()"
+            (ngModelChange)="plotInput.set($event)"
+          />
+          <button type="button" (click)="addPlot()">Add</button>
+        </div>
+
+        @if (plots().length === 0) {
+        <p class="small">No plots yet.</p>
+        } @else {
+        <ul class="chip-list">
+          @for (plot of plots(); track plot; let i = $index) {
+          <li>
+            <span>{{ plot }}</span>
+            <button type="button" class="small-btn" (click)="removePlot(i)">x</button>
+          </li>
+          }
+        </ul>
+        }
+      </div>
+    </div>
+
+    @if (latestResult()?.intervention) {
+    <div class="intervention-suggest-box">
+      <h3>Intervention Suggestions</h3>
+      <div class="suggest-row">
+        <p><strong>Entity Target:</strong> {{ interventionEntitySuggestion() ?? 'No entities yet' }}</p>
+        <button type="button" class="small-btn" (click)="rerollEntitySuggestion()">Reroll</button>
+      </div>
+      <div class="suggest-row">
+        <p><strong>Plot Target:</strong> {{ interventionPlotSuggestion() ?? 'No plots yet' }}</p>
+        <button type="button" class="small-btn" (click)="rerollPlotSuggestion()">Reroll</button>
+      </div>
+    </div>
+    }
+  </section>
+</main>

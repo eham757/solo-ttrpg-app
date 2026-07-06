@@ -1,0 +1,208 @@
+{
+  "name": "D&D 5e 2014 Starter",
+  "version": "1.0.0",
+  "description": "System-agnostic starter schema prefilled for core D&D 5e 2014 solo play fields.",
+  "fields": [
+    {
+      "id": "characterName",
+      "label": "Character Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Aric Stormborn"
+    },
+    {
+      "id": "playerName",
+      "label": "Player Name",
+      "type": "text",
+      "placeholder": "Solo Player"
+    },
+    {
+      "id": "race",
+      "label": "Race",
+      "type": "text",
+      "placeholder": "Human"
+    },
+    {
+      "id": "class",
+      "label": "Class",
+      "type": "text",
+      "placeholder": "Fighter"
+    },
+    {
+      "id": "background",
+      "label": "Background",
+      "type": "text",
+      "placeholder": "Soldier"
+    },
+    {
+      "id": "alignment",
+      "label": "Alignment",
+      "type": "select",
+      "options": [
+        "Lawful Good",
+        "Neutral Good",
+        "Chaotic Good",
+        "Lawful Neutral",
+        "Neutral",
+        "Chaotic Neutral",
+        "Lawful Evil",
+        "Neutral Evil",
+        "Chaotic Evil"
+      ]
+    },
+    {
+      "id": "level",
+      "label": "Level",
+      "type": "number",
+      "defaultValue": 1,
+      "min": 1,
+      "max": 20
+    },
+    {
+      "id": "experience",
+      "label": "Experience Points",
+      "type": "number",
+      "defaultValue": 0
+    },
+    {
+      "id": "strength",
+      "label": "Strength",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "dexterity",
+      "label": "Dexterity",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "constitution",
+      "label": "Constitution",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "intelligence",
+      "label": "Intelligence",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "wisdom",
+      "label": "Wisdom",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "charisma",
+      "label": "Charisma",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "proficiencyBonus",
+      "label": "Proficiency Bonus",
+      "type": "number",
+      "defaultValue": 2
+    },
+    {
+      "id": "armorClass",
+      "label": "Armor Class",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "initiative",
+      "label": "Initiative",
+      "type": "number",
+      "defaultValue": 0
+    },
+    {
+      "id": "speed",
+      "label": "Speed",
+      "type": "number",
+      "defaultValue": 30
+    },
+    {
+      "id": "maxHp",
+      "label": "Max HP",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "currentHp",
+      "label": "Current HP",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "temporaryHp",
+      "label": "Temporary HP",
+      "type": "number",
+      "defaultValue": 0
+    },
+    {
+      "id": "hitDice",
+      "label": "Hit Dice",
+      "type": "text",
+      "placeholder": "1d10"
+    },
+    {
+      "id": "passivePerception",
+      "label": "Passive Perception",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "proficiencies",
+      "label": "Proficiencies",
+      "type": "stringList",
+      "helpText": "Comma separated list in the editor."
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "type": "stringList",
+      "helpText": "Comma separated list in the editor."
+    },
+    {
+      "id": "featuresTraits",
+      "label": "Features and Traits",
+      "type": "textarea",
+      "placeholder": "Class features, racial traits, and other important abilities."
+    },
+    {
+      "id": "spells",
+      "label": "Spells",
+      "type": "textarea",
+      "placeholder": "Prepared spells and notes."
+    },
+    {
+      "id": "personalityTraits",
+      "label": "Personality Traits",
+      "type": "textarea"
+    },
+    {
+      "id": "ideals",
+      "label": "Ideals",
+      "type": "textarea"
+    },
+    {
+      "id": "bonds",
+      "label": "Bonds",
+      "type": "textarea"
+    },
+    {
+      "id": "flaws",
+      "label": "Flaws",
+      "type": "textarea"
+    },
+    {
+      "id": "notes",
+      "label": "Session Notes",
+      "type": "textarea",
+      "placeholder": "MUNE oracles, clues, and campaign developments."
+    }
+  ]
+}

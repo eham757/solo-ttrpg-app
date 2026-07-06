@@ -1,0 +1,51 @@
+{
+  "schemaName": "D&D 5e 2014 Starter",
+  "schemaVersion": "1.0.0",
+  "values": {
+    "characterName": "Aric Stormborn",
+    "playerName": "Solo Player",
+    "race": "Human",
+    "class": "Fighter",
+    "background": "Soldier",
+    "alignment": "Neutral Good",
+    "level": 1,
+    "experience": 0,
+    "strength": 16,
+    "dexterity": 12,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 11,
+    "charisma": 13,
+    "proficiencyBonus": 2,
+    "armorClass": 16,
+    "initiative": 1,
+    "speed": 30,
+    "maxHp": 12,
+    "currentHp": 12,
+    "temporaryHp": 0,
+    "hitDice": "1d10",
+    "passivePerception": 10,
+    "proficiencies": [
+      "Athletics",
+      "Intimidation",
+      "All armor",
+      "Shields",
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "equipment": [
+      "Chain mail",
+      "Shield",
+      "Longsword",
+      "Explorer pack",
+      "Insignia of rank"
+    ],
+    "featuresTraits": "Second Wind (1/rest), Fighting Style: Defense",
+    "spells": "",
+    "personalityTraits": "I can stare down a hell hound without flinching.",
+    "ideals": "Responsibility. I do what I must and obey lawful authority.",
+    "bonds": "I would still lay down my life for the people I served with.",
+    "flaws": "I obey orders even when I think they are wrong.",
+    "notes": "Started in a frontier town after a MUNE 'Yes, but' opening."
+  }
+}

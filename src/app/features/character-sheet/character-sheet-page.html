@@ -15,6 +15,9 @@
         <li>
           <a href="/schema-packs/dnd5e-2014.sample-character.json" target="_blank" rel="noopener noreferrer">D&amp;D 5e 2014 Sample Character</a>
         </li>
+        <li>
+          <a href="/schema-packs/caoimhe-5e.json" target="_blank" rel="noopener noreferrer">Caoimhe 5e Character</a>
+        </li>
       </ul>
     </div>
 
@@ -119,6 +122,23 @@
               [ngModelOptions]="{ standalone: true }"
               (ngModelChange)="updateField(field, $event)"
             ></textarea>
+          }
+          @case ('spellbook') {
+            <div class="spellbook-field">
+              @for (section of field.sections ?? []; track section.id) {
+              <div class="spellbook-section">
+                <label [for]="field.id + '-' + section.id">{{ section.label }}</label>
+                <textarea
+                  [id]="field.id + '-' + section.id"
+                  rows="2"
+                  [placeholder]="section.placeholder ?? 'Comma separated spells'"
+                  [ngModel]="spellbookSectionValue(field, section)"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ngModelChange)="updateSpellbookField(field, section, $event)"
+                ></textarea>
+              </div>
+              }
+            </div>
           }
         }
 

@@ -4,6 +4,8 @@ import {
   CharacterFieldSchema,
   CharacterSchema,
   CharacterValue,
+  SpellbookSectionSchema,
+  SpellbookValue,
 } from '../../core/models/character.models';
 import { CharacterSheetService } from '../../core/services/character-sheet.service';
 
@@ -98,6 +100,26 @@ export class CharacterSheetPage {
     });
   }
 
+  public updateSpellbookField(
+    field: CharacterFieldSchema,
+    section: SpellbookSectionSchema,
+    value: string,
+  ): void {
+    this.values.update((state) => {
+      const current = this.valueAsSpellbook(field);
+      const nextState = { ...state };
+      nextState[field.id] = {
+        ...current,
+        [section.id]: value
+          .split(',')
+          .map((item) => item.trim())
+          .filter((item) => item.length > 0),
+      };
+
+      return nextState;
+    });
+  }
+
   public valueAsText(field: CharacterFieldSchema): string {
     const value = this.values()[field.id];
     if (Array.isArray(value)) {
@@ -113,6 +135,24 @@ export class CharacterSheetPage {
 
   public valueAsBoolean(field: CharacterFieldSchema): boolean {
     return this.values()[field.id] === true;
+  }
+
+  public valueAsSpellbook(field: CharacterFieldSchema): SpellbookValue {
+    const value = this.values()[field.id];
+    const sections = field.sections ?? [];
+
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      const spellbook = value as SpellbookValue;
+      return Object.fromEntries(
+        sections.map((section) => [section.id, spellbook[section.id] ?? []]),
+      );
+    }
+
+    return Object.fromEntries(sections.map((section) => [section.id, [] as string[]]));
+  }
+
+  public spellbookSectionValue(field: CharacterFieldSchema, section: SpellbookSectionSchema): string {
+    return this.valueAsSpellbook(field)[section.id]?.join(', ') ?? '';
   }
 
   public exportCharacter(): void {

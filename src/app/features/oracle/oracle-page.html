@@ -1,37 +1,32 @@
 <main class="oracle-page">
+  <app-mune-oracle-panel (rolled)="onMuneRolled($event)"></app-mune-oracle-panel>
+
+  @if (latestOracleResult(); as oracleResult) {
+  <section class="card result-card mune-result-card">
+    <h2>Latest MUNE Roll</h2>
+    <p><strong>Outcome:</strong> {{ oracleResult.outcome }}</p>
+    <p><strong>Dice:</strong> {{ oracleResult.dice.join(', ') }} | <strong>Selected:</strong> {{ oracleResult.selectedDie }}</p>
+    <p><strong>Question:</strong> {{ oracleResult.question }}</p>
+    <p><strong>Likelihood:</strong> {{ oracleResult.likelihood }}</p>
+
+    @if (oracleResult.interventionPointGain > 0) {
+    <p class="gain">Intervention +{{ oracleResult.interventionPointGain }} (a die rolled 6)</p>
+    }
+
+    @if (oracleResult.intervention; as intervention) {
+    <div class="intervention-box">
+      <h3>Intervention Triggered</h3>
+      <p><strong>Type:</strong> {{ intervention.type }} (d6: {{ intervention.typeDie }})</p>
+      <p>{{ intervention.notes }}</p>
+    </div>
+    }
+  </section>
+  }
+
   <section class="card">
-    <h1>MUNE Oracle</h1>
-    <p>
-      Ask a yes/no question, choose likelihood, and roll. Intervention points increase when any oracle die is a 6.
-    </p>
-
-    <label class="field-label" for="oracleQuestion">Question</label>
-    <textarea
-      id="oracleQuestion"
-      rows="3"
-      [ngModel]="question()"
-      (ngModelChange)="question.set($event)"
-      placeholder="Example: Is the innkeeper hiding something?"
-    ></textarea>
-
-    <div class="segmented-control" role="group" aria-label="Likelihood mode">
-      <button type="button" [class.active]="likelihood() === 'unlikely'" (click)="setLikelihood('unlikely')">
-        Unlikely
-      </button>
-      <button type="button" [class.active]="likelihood() === 'normal'" (click)="setLikelihood('normal')">
-        Normal
-      </button>
-      <button type="button" [class.active]="likelihood() === 'likely'" (click)="setLikelihood('likely')">
-        Likely
-      </button>
-    </div>
-
-    <div class="action-row">
-      <button type="button" (click)="askOracle()">Roll Oracle</button>
-      <button type="button" class="secondary" (click)="resetSession()">Reset Session</button>
-    </div>
-
+    <h2>Oracle Session</h2>
     <div class="action-row three-actions">
+      <button type="button" class="secondary" (click)="resetSession()">Reset Session</button>
       <button type="button" class="secondary" (click)="clearHistory()">Clear History</button>
       <button type="button" class="secondary" (click)="exportState()">Save State (JSON)</button>
       <label class="upload-btn" for="stateFileUpload">Load State (JSON)</label>
@@ -68,61 +63,26 @@
     <button type="button" (click)="askPromptOracle()">Roll Prompt</button>
   </section>
 
-  @if (latestResult(); as result) {
+  @if (latestPromptResult(); as promptResult) {
   <section class="card result-card">
-    <h2>Latest Result</h2>
-    <p><strong>Type:</strong> {{ result.entryType === 'prompt' ? 'Prompt Oracle' : 'Yes/No Oracle' }}</p>
-    @if (result.entryType === 'prompt') {
-    <p><strong>Prompt:</strong> {{ (result.promptWords ?? []).join(', ') }}</p>
-    }
-    @if (result.entryType === 'oracle') {
-    <p><strong>Outcome:</strong> {{ result.outcome }}</p>
-    <p><strong>Dice:</strong> {{ result.dice.join(', ') }} | <strong>Selected:</strong> {{ result.selectedDie }}</p>
-    }
-    <p><strong>Question:</strong> {{ result.question }}</p>
-
-    @if (result.entryType === 'oracle' && result.interventionPointGain > 0) {
-    <p class="gain">Intervention +{{ result.interventionPointGain }} (a die rolled 6)</p>
-    }
-
-    @if (result.entryType === 'oracle' && result.intervention; as intervention) {
-    <div class="intervention-box">
-      <h3>Intervention Triggered</h3>
-      <p><strong>Type:</strong> {{ intervention.type }} (d6: {{ intervention.typeDie }})</p>
-      <p>{{ intervention.notes }}</p>
-    </div>
-    }
+    <h2>Latest Prompt Result</h2>
+    <p><strong>Prompt:</strong> {{ (promptResult.promptWords ?? []).join(', ') }}</p>
+    <p><strong>Question:</strong> {{ promptResult.question }}</p>
   </section>
   }
 
-  <section class="card">
-    <h2>Session Timeline</h2>
-    @if (oracleService.history().length === 0) {
-    <p>No rolls yet.</p>
-    } @else {
-    <ul class="timeline">
-      @for (entry of oracleService.history(); track entry.createdAt) {
-      <li>
-        <p>
-          <strong>
-            {{ entry.entryType === 'prompt' ? 'Prompt Oracle' : entry.outcome }}
-          </strong>
-          <span>({{ entry.createdAt | date: 'shortTime' }})</span>
-        </p>
-        <p>{{ entry.question }}</p>
-        @if (entry.entryType === 'prompt') {
-        <p class="small">Words: {{ (entry.promptWords ?? []).join(', ') }}</p>
-        } @else {
-        <p class="small">Dice {{ entry.dice.join(', ') }} | Mode: {{ entry.likelihood }}</p>
-        }
-        @if (entry.entryType === 'oracle' && entry.intervention) {
-        <p class="small"><strong>Intervention:</strong> {{ entry.intervention.type }}</p>
-        }
-      </li>
-      }
-    </ul>
+  <app-twene-oracle-panel (rolled)="onTweneRolled($event)"></app-twene-oracle-panel>
+
+  @if (latestTweneResult(); as tweneResult) {
+  <section class="card result-card">
+    <h2>Latest TWENE Result</h2>
+    @if (tweneResult.tweneRoll; as twene) {
+    <p><strong>TWENE:</strong> {{ twene.result }} (d10: {{ twene.die }})</p>
+    <p>{{ twene.guidance }}</p>
     }
+    <p><strong>Question:</strong> {{ tweneResult.question }}</p>
   </section>
+  }
 
   <section class="card">
     <h2>Entities and Plots</h2>
@@ -182,7 +142,7 @@
       </div>
     </div>
 
-    @if (latestResult()?.intervention) {
+    @if (latestOracleResult()?.intervention) {
     <div class="intervention-suggest-box">
       <h3>Intervention Suggestions</h3>
       <div class="suggest-row">
@@ -194,6 +154,37 @@
         <button type="button" class="small-btn" (click)="rerollPlotSuggestion()">Reroll</button>
       </div>
     </div>
+    }
+  </section>
+
+  <section class="card">
+    <h2>Session Timeline</h2>
+    @if (oracleService.history().length === 0) {
+    <p>No rolls yet.</p>
+    } @else {
+    <ul class="timeline">
+      @for (entry of oracleService.history(); track entry.createdAt) {
+      <li>
+        <p>
+          <strong>
+            {{ entry.entryType === 'prompt' ? 'Prompt Oracle' : entry.entryType === 'twene' ? 'TWENE' : entry.outcome }}
+          </strong>
+          <span>({{ entry.createdAt | date: 'shortTime' }})</span>
+        </p>
+        <p>{{ entry.question }}</p>
+        @if (entry.entryType === 'prompt') {
+        <p class="small">Words: {{ (entry.promptWords ?? []).join(', ') }}</p>
+        } @else if (entry.entryType === 'twene' && entry.tweneRoll; as twene) {
+        <p class="small">TWENE {{ twene.die }}: {{ twene.result }}</p>
+        } @else {
+        <p class="small">Dice {{ entry.dice.join(', ') }} | Mode: {{ entry.likelihood }}</p>
+        }
+        @if (entry.entryType === 'oracle' && entry.intervention) {
+        <p class="small"><strong>Intervention:</strong> {{ entry.intervention.type }}</p>
+        }
+      </li>
+      }
+    </ul>
     }
   </section>
 </main>

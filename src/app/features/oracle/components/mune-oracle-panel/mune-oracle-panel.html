@@ -1,0 +1,29 @@
+<section class="card">
+  <h1>MUNE Oracle</h1>
+  <p>
+    Ask a yes/no question, choose likelihood, and roll. Intervention points increase when any oracle die is a 6.
+  </p>
+
+  <label class="field-label" for="oracleQuestion">Question</label>
+  <textarea
+    id="oracleQuestion"
+    rows="3"
+    [ngModel]="question()"
+    (ngModelChange)="question.set($event)"
+    placeholder="Example: Is the innkeeper hiding something?"
+  ></textarea>
+
+  <div class="segmented-control" role="group" aria-label="Likelihood mode">
+    <button type="button" [class.active]="likelihood() === 'unlikely'" (click)="setLikelihood('unlikely')">
+      Unlikely
+    </button>
+    <button type="button" [class.active]="likelihood() === 'normal'" (click)="setLikelihood('normal')">
+      Normal
+    </button>
+    <button type="button" [class.active]="likelihood() === 'likely'" (click)="setLikelihood('likely')">
+      Likely
+    </button>
+  </div>
+
+  <button type="button" (click)="askOracle()">Roll Oracle</button>
+</section>

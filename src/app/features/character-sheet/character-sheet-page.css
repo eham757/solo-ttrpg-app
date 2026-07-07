@@ -85,3 +85,18 @@
   font-size: 0.9rem;
   opacity: 0.85;
 }
+
+.spellbook-field {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.spellbook-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(201, 168, 107, 0.3);
+  border-radius: 0.35rem;
+  background: rgba(201, 168, 107, 0.05);
+}

@@ -4,6 +4,7 @@ import {
   CharacterFieldSchema,
   CharacterSchema,
   CharacterValue,
+  SpellbookValue,
 } from '../models/character.models';
 
 interface ValidationResult<T> {
@@ -135,13 +136,30 @@ export class CharacterSheetService {
       if (field.type === 'select' && (!Array.isArray(field.options) || field.options.length === 0)) {
         errors.push(`Field "${field.label}" of type select requires options.`);
       }
+
+      if (field.type === 'spellbook') {
+        if (!Array.isArray(field.sections) || field.sections.length === 0) {
+          errors.push(`Field "${field.label}" of type spellbook requires sections.`);
+          continue;
+        }
+
+        for (const section of field.sections) {
+          if (!section.id || typeof section.id !== 'string') {
+            errors.push(`Field "${field.label}" has a spellbook section without a string id.`);
+          }
+
+          if (!section.label || typeof section.label !== 'string') {
+            errors.push(`Field "${field.label}" has a spellbook section without a string label.`);
+          }
+        }
+      }
     }
 
     return errors;
   }
 
   private isAllowedType(type: string): boolean {
-    return ['text', 'textarea', 'number', 'boolean', 'select', 'stringList'].includes(type);
+    return ['text', 'textarea', 'number', 'boolean', 'select', 'stringList', 'spellbook'].includes(type);
   }
 
   private emptyValueForField(field: CharacterFieldSchema): CharacterValue {
@@ -152,6 +170,10 @@ export class CharacterSheetService {
         return false;
       case 'stringList':
         return [];
+      case 'spellbook': {
+        const entries = field.sections?.map((section) => [section.id, [] as string[]]) ?? [];
+        return Object.fromEntries(entries);
+      }
       case 'select':
         return field.options?.[0] ?? '';
       default:
@@ -181,8 +203,38 @@ export class CharacterSheetService {
           return value;
         }
         return null;
+      case 'spellbook':
+        return this.normalizeSpellbookValue(field, value);
       default:
         return null;
     }
+  }
+
+  private normalizeSpellbookValue(
+    field: CharacterFieldSchema,
+    value: unknown,
+  ): SpellbookValue | null {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return null;
+    }
+
+    const sections = field.sections ?? [];
+    const normalized: SpellbookValue = {};
+
+    for (const section of sections) {
+      const incoming = (value as Record<string, unknown>)[section.id];
+      if (incoming === undefined) {
+        normalized[section.id] = [];
+        continue;
+      }
+
+      if (!Array.isArray(incoming) || !incoming.every((item) => typeof item === 'string')) {
+        return null;
+      }
+
+      normalized[section.id] = incoming;
+    }
+
+    return normalized;
   }
 }

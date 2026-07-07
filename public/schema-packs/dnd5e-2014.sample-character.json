@@ -41,7 +41,21 @@
       "Insignia of rank"
     ],
     "featuresTraits": "Second Wind (1/rest), Fighting Style: Defense",
-    "spells": "",
+    "spellAttackBonus": 0,
+    "spellSaveDc": 10,
+    "preparedSpellCount": 0,
+    "spells": {
+      "cantrips": [],
+      "level1": [],
+      "level2": [],
+      "level3": [],
+      "level4": [],
+      "level5": [],
+      "level6": [],
+      "level7": [],
+      "level8": [],
+      "level9": []
+    },
     "personalityTraits": "I can stare down a hell hound without flinching.",
     "ideals": "Responsibility. I do what I must and obey lawful authority.",
     "bonds": "I would still lay down my life for the people I served with.",

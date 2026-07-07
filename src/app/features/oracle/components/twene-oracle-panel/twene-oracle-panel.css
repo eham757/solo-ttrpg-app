@@ -1,0 +1,49 @@
+.field-label {
+  font-weight: 700;
+}
+
+input[type='text'] {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.35rem;
+  padding: 0.55rem 0.65rem;
+}
+
+.twene-details {
+  margin-top: 0.8rem;
+  border: 1px dashed rgba(201, 168, 107, 0.45);
+  border-radius: 0.4rem;
+  padding: 0.65rem;
+}
+
+.twene-details summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.twene-table-wrap {
+  overflow-x: auto;
+  margin: 0.65rem 0;
+}
+
+.twene-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.twene-table th,
+.twene-table td {
+  border: 1px solid rgba(201, 168, 107, 0.35);
+  padding: 0.45rem;
+  text-align: left;
+}
+
+.twene-table th {
+  background: rgba(201, 168, 107, 0.14);
+}
+
+.small {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}

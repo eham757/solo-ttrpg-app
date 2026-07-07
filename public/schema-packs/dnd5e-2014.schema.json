@@ -173,10 +173,72 @@
       "placeholder": "Class features, racial traits, and other important abilities."
     },
     {
+      "id": "spellAttackBonus",
+      "label": "Spell Attack Bonus",
+      "type": "number",
+      "defaultValue": 0
+    },
+    {
+      "id": "spellSaveDc",
+      "label": "Spell Save DC",
+      "type": "number",
+      "defaultValue": 10
+    },
+    {
+      "id": "preparedSpellCount",
+      "label": "Prepared Spell Count",
+      "type": "number",
+      "defaultValue": 0
+    },
+    {
       "id": "spells",
       "label": "Spells",
-      "type": "textarea",
-      "placeholder": "Prepared spells and notes."
+      "type": "spellbook",
+      "helpText": "Enter comma separated spells for each level.",
+      "sections": [
+        {
+          "id": "cantrips",
+          "label": "Cantrips",
+          "placeholder": "Light, Mage Hand"
+        },
+        {
+          "id": "level1",
+          "label": "1st Level",
+          "placeholder": "Magic Missile, Shield"
+        },
+        {
+          "id": "level2",
+          "label": "2nd Level"
+        },
+        {
+          "id": "level3",
+          "label": "3rd Level"
+        },
+        {
+          "id": "level4",
+          "label": "4th Level"
+        },
+        {
+          "id": "level5",
+          "label": "5th Level"
+        },
+        {
+          "id": "level6",
+          "label": "6th Level"
+        },
+        {
+          "id": "level7",
+          "label": "7th Level"
+        },
+        {
+          "id": "level8",
+          "label": "8th Level"
+        },
+        {
+          "id": "level9",
+          "label": "9th Level"
+        }
+      ]
     },
     {
       "id": "personalityTraits",

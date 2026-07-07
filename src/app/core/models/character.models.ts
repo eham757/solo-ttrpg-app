@@ -4,9 +4,18 @@ export type CharacterFieldType =
   | 'number'
   | 'boolean'
   | 'select'
-  | 'stringList';
+  | 'stringList'
+  | 'spellbook';
 
-export type CharacterValue = string | number | boolean | string[];
+export interface SpellbookSectionSchema {
+  id: string;
+  label: string;
+  placeholder?: string;
+}
+
+export type SpellbookValue = Record<string, string[]>;
+
+export type CharacterValue = string | number | boolean | string[] | SpellbookValue;
 
 export interface CharacterFieldSchema {
   id: string;
@@ -19,6 +28,7 @@ export interface CharacterFieldSchema {
   defaultValue?: CharacterValue;
   min?: number;
   max?: number;
+  sections?: SpellbookSectionSchema[];
 }
 
 export interface CharacterSchema {

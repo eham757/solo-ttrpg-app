@@ -16,8 +16,26 @@ export type InterventionType =
   | 'Regress plot'
   | 'Wild';
 
+export type TweneResultType =
+  | 'Increase simple element'
+  | 'Decrease simple element'
+  | 'Add simple element'
+  | 'Remove simple element'
+  | 'Increase major element'
+  | 'Decrease major element'
+  | 'Add major element'
+  | 'Remove major element'
+  | 'Wild positive'
+  | 'Wild negative';
+
+export interface TweneRoll {
+  die: number;
+  result: TweneResultType;
+  guidance: string;
+}
+
 export interface OracleRollResult {
-  entryType: 'oracle' | 'prompt';
+  entryType: 'oracle' | 'prompt' | 'twene';
   question: string;
   likelihood: LikelihoodMode;
   dice: number[];
@@ -28,6 +46,7 @@ export interface OracleRollResult {
   intervention: InterventionEvent | null;
   createdAt: string;
   promptWords?: string[];
+  tweneRoll?: TweneRoll;
 }
 
 export interface InterventionEvent {

@@ -1,9 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { LikelihoodMode, OracleRollResult } from '../../core/models/mune.models';
+import { OracleRollResult } from '../../core/models/mune.models';
 import { OracleService } from '../../core/services/oracle.service';
 import { OracleContextService } from '../../core/services/oracle-context.service';
+import { MuneOraclePanel } from './components/mune-oracle-panel/mune-oracle-panel';
+import { TweneOraclePanel } from './components/twene-oracle-panel/twene-oracle-panel';
 
 interface OracleStateFile {
   version: 1;
@@ -20,18 +22,18 @@ interface OracleStateFile {
 
 @Component({
   selector: 'app-oracle-page',
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe, MuneOraclePanel, TweneOraclePanel],
   templateUrl: './oracle-page.html',
   styleUrl: './oracle-page.css',
 })
 export class OraclePage {
   private readonly oracleContext = inject(OracleContextService);
 
-  question = signal<string>('');
   promptQuestion = signal<string>('');
   promptWordCount = signal<number>(3);
-  likelihood = signal<LikelihoodMode>('normal');
-  latestResult = signal<OracleRollResult | null>(null);
+  latestOracleResult = signal<OracleRollResult | null>(null);
+  latestPromptResult = signal<OracleRollResult | null>(null);
+  latestTweneResult = signal<OracleRollResult | null>(null);
   entityInput = signal<string>('');
   plotInput = signal<string>('');
   readonly entities = this.oracleContext.entities;
@@ -43,14 +45,8 @@ export class OraclePage {
 
   constructor(public readonly oracleService: OracleService) {}
 
-  public askOracle(): void {
-    const text = this.question().trim();
-    if (!text) {
-      return;
-    }
-
-    const result = this.oracleService.rollOracle(text, this.likelihood());
-    this.latestResult.set(result);
+  public onMuneRolled(result: OracleRollResult): void {
+    this.latestOracleResult.set(result);
 
     if (result.intervention) {
       this.interventionEntitySuggestion.set(this.pickRandom(this.entities()));
@@ -61,6 +57,12 @@ export class OraclePage {
     }
   }
 
+  public onTweneRolled(result: OracleRollResult): void {
+    this.latestTweneResult.set(result);
+    this.interventionEntitySuggestion.set(null);
+    this.interventionPlotSuggestion.set(null);
+  }
+
   public askPromptOracle(): void {
     const text = this.promptQuestion().trim();
     if (!text) {
@@ -68,7 +70,7 @@ export class OraclePage {
     }
 
     const result = this.oracleService.rollPrompt(text, this.promptWordCount());
-    this.latestResult.set(result);
+    this.latestPromptResult.set(result);
     this.interventionEntitySuggestion.set(null);
     this.interventionPlotSuggestion.set(null);
   }
@@ -81,13 +83,11 @@ export class OraclePage {
     this.promptWordCount.update((count) => Math.max(1, count - 1));
   }
 
-  public setLikelihood(mode: LikelihoodMode): void {
-    this.likelihood.set(mode);
-  }
-
   public resetSession(): void {
     this.oracleService.resetSession();
-    this.latestResult.set(null);
+    this.latestOracleResult.set(null);
+    this.latestPromptResult.set(null);
+    this.latestTweneResult.set(null);
     this.interventionEntitySuggestion.set(null);
     this.interventionPlotSuggestion.set(null);
     this.importExportMessage.set('Session reset.');
@@ -95,7 +95,9 @@ export class OraclePage {
 
   public clearHistory(): void {
     this.oracleService.clearHistory();
-    this.latestResult.set(null);
+    this.latestOracleResult.set(null);
+    this.latestPromptResult.set(null);
+    this.latestTweneResult.set(null);
     this.importExportMessage.set('History cleared.');
   }
 
@@ -144,7 +146,15 @@ export class OraclePage {
         plots: Array.isArray(parsed.context.plots) ? parsed.context.plots : [],
       });
 
-      this.latestResult.set(this.oracleService.history()[0] ?? null);
+      this.latestOracleResult.set(
+        this.oracleService.history().find((entry) => entry.entryType === 'oracle') ?? null,
+      );
+      this.latestPromptResult.set(
+        this.oracleService.history().find((entry) => entry.entryType === 'prompt') ?? null,
+      );
+      this.latestTweneResult.set(
+        this.oracleService.history().find((entry) => entry.entryType === 'twene') ?? null,
+      );
       this.interventionEntitySuggestion.set(null);
       this.interventionPlotSuggestion.set(null);
       this.importExportMessage.set('State loaded from JSON.');

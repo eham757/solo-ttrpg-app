@@ -5,6 +5,7 @@ import {
   LikelihoodMode,
   OracleOutcome,
   OracleRollResult,
+  TweneResultType,
 } from '../models/mune.models';
 
 const ORACLE_TABLE: Record<number, OracleOutcome> = {
@@ -23,6 +24,49 @@ const INTERVENTION_TABLE: Record<number, InterventionType> = {
   4: 'Advance plot',
   5: 'Regress plot',
   6: 'Wild',
+};
+
+const TWENE_TABLE: Record<number, { result: TweneResultType; guidance: string }> = {
+  1: {
+    result: 'Increase simple element',
+    guidance: 'A minor scene detail becomes more pronounced: more noise, more crowds, heavier rain, stronger smell.',
+  },
+  2: {
+    result: 'Decrease simple element',
+    guidance: 'A minor detail fades: fewer people, less light, quieter ambience, softer weather.',
+  },
+  3: {
+    result: 'Add simple element',
+    guidance: 'Introduce a small flavor detail that does not redirect the core scene on its own.',
+  },
+  4: {
+    result: 'Remove simple element',
+    guidance: 'A minor expected detail is absent, creating subtle tension or a practical gap.',
+  },
+  5: {
+    result: 'Increase major element',
+    guidance: 'A key element escalates in scale or impact: bigger threat, stronger security, greater urgency.',
+  },
+  6: {
+    result: 'Decrease major element',
+    guidance: 'A key element is reduced: weaker opposition, easier access, less immediate danger.',
+  },
+  7: {
+    result: 'Add major element',
+    guidance: 'Introduce a new major factor: hidden faction, new hazard, or sudden ally.',
+  },
+  8: {
+    result: 'Remove major element',
+    guidance: 'A major expected factor is missing: no contact, no guards, no objective where expected.',
+  },
+  9: {
+    result: 'Wild positive',
+    guidance: 'Apply a surprising twist that benefits the party; use a Portent if needed.',
+  },
+  10: {
+    result: 'Wild negative',
+    guidance: 'Apply a surprising setback or complication; use a Portent if needed.',
+  },
 };
 
 const PROMPT_WORD_POOL: string[] = [
@@ -125,6 +169,33 @@ export class OracleService {
     return result;
   }
 
+  public rollTwene(sceneExpectationQuestion: string): OracleRollResult {
+    const trimmedQuestion = sceneExpectationQuestion.trim();
+    const die = this.rollD10();
+    const tweneRoll = TWENE_TABLE[die];
+
+    const result: OracleRollResult = {
+      entryType: 'twene',
+      question: trimmedQuestion,
+      likelihood: 'normal',
+      dice: [die],
+      selectedDie: die,
+      outcome: 'Yes',
+      interventionPointGain: 0,
+      interventionPointsAfterRoll: this._interventionPoints(),
+      intervention: null,
+      createdAt: new Date().toISOString(),
+      tweneRoll: {
+        die,
+        result: tweneRoll.result,
+        guidance: tweneRoll.guidance,
+      },
+    };
+
+    this._history.update((history) => [result, ...history]);
+    return result;
+  }
+
   private rollIntervention(): InterventionEvent {
     const typeDie = this.rollD6();
     return {
@@ -157,6 +228,10 @@ export class OracleService {
 
   private rollD6(): number {
     return Math.floor(Math.random() * 6) + 1;
+  }
+
+  private rollD10(): number {
+    return Math.floor(Math.random() * 10) + 1;
   }
 
   private pickPromptWords(count: number): string[] {
